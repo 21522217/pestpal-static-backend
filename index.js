@@ -1,11 +1,14 @@
-const express = require("express");
+import env from "dotenv";
+import express from "express";
+
+import pestRouter from "./routers/pest_router.js";
+
 const app = express();
-const port = 3000;
+env.config();
+app.use(express.json());
 
-app.get("/", (req, res) => {
-  res.send("Hello, World!");
-});
+app.use(pestRouter);
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+app.listen(process.env.PORT, () => {
+  console.log(`Server running on: http://localhost:${process.env.PORT}.`);
 });
