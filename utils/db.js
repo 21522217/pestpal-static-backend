@@ -1,13 +1,20 @@
 import pg from "pg";
 
-export function getDatabaseInstance() {
-  const db = new pg.Client({
-    user: process.env.PG_USER,
-    host: process.env.PG_HOST,
-    database: process.env.PG_DATABASE,
-    password: process.env.PG_PASSWORD,
-    port: process.env.PG_PORT,
-  });
-  db.connect();
-  return db;
+const sslOptions = {
+  rejectUnauthorized: false,
+};
+
+export async function getDatabaseInstance() {
+  try {
+    const client = new pg.Client({
+      connectionString: process.env.CONNECTION_STRING,
+      ssl: sslOptions,
+    });
+    await client.connect();
+    console.log("Connected to PostgreSQL database");
+    return client;
+  } catch (err) {
+    console.error("Error connecting to PostgreSQL:", err.stack);
+    throw err;
+  }
 }

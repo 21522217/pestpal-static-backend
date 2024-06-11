@@ -1,3 +1,4 @@
+DROP TABLE pests;
 CREATE TABLE pests (
     id INT PRIMARY KEY,
     pest_name VARCHAR(100),
@@ -5,6 +6,7 @@ CREATE TABLE pests (
     danger_scale DECIMAL(2, 1),
     history TEXT,
     habitat VARCHAR(255),
+    represent_image VARCHAR(255),
     info_link VARCHAR(255)
 );
 INSERT INTO pests (

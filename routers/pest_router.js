@@ -5,7 +5,7 @@ const pestRouter = express.Router();
 
 pestRouter.get("/pests", async (req, res) => {
   try {
-    const db = getDatabaseInstance();
+    const db = await getDatabaseInstance();
 
     const pests = await db.query("SELECT * FROM pests");
 
@@ -26,7 +26,7 @@ pestRouter.patch("/pests/:id", async (req, res) => {
   }
 
   try {
-    const db = getDatabaseInstance();
+    const db = await getDatabaseInstance();
 
     const setClauses = Object.keys(updateFields).map(
       (field, idx) => `${field} = $${idx + 1}`
